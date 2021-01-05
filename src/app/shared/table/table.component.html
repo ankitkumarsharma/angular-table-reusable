@@ -1,0 +1,30 @@
+<div class="table-reusable-block" *ngIf="data.length > 0">
+  <h3 class="ak-title">{{tableConfig.title}}</h3>
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th *ngFor="let col of tableConfig.tableHeaders">{{col.label}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of data;let i=index;">
+          <td *ngFor="let col of tableConfig.tableHeaders">
+            {{item[col.value]}}
+            <span *ngIf="col.type === text">{{item[col.value]}}</span>
+            <span *ngIf="col.type === number" class="pull-right">{{item[col.value]}}</span>
+            <span *ngIf="col.type === button">
+              <button *ngFor="let icon of col.icons" (click)="onClick($event, item)" id="{{icon.id}}"
+                class="btn btn-primary">{{icon.name}}</button>
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div *ngIf="data.length === 0" class="no-data">
+  <p class="ak-sub-title">
+    Data Unavailable ...
+  </p>
+</div>
